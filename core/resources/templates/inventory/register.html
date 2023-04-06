@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="col-xl-9 col-lg-9" style="margin-left: auto; margin-right: auto; display: block;">
+   <div class="card">
+      <div class="card-header d-flex justify-content-between">
+         <div class="header-title">
+            <h4 class="card-title">Asset Registration</h4>
+         </div>
+      </div>
+      <div class="card-body">
+         <div class="new-user-info">
+<!--            -->
+            <form action="{% url 'applications:inventory:api:register' %}" method="post" id="register">
+               {% csrf_token %}
+               <div class="row">
+                  <div class="form-group col-md-6">
+                     <label class="form-label" for="tag">Tag</label>
+                     <input type="text" class="form-control" id="tag"  name="tag" placeholder="Asset Tag">
+                  </div>
+                  <div class="form-group col-md-6">
+                     <label class="form-label" for="serial">Serial</label>
+                     <input type="text" class="form-control" id="serial" name="serial" placeholder="Serial Tag">
+                  </div>
+                  <div class="form-group col-md-6">
+                     <label class="form-label" for="category">Category</label>
+                     <div class="form-group ">
+                        <select class="form-control select2" data-style="" name="category" id="category">
+                           <option selected disabled>Select Category</option>
+                           {% for category in categories %}
+                           <option value="{{category.id}}">{{category.name}}</option>
+                           {% endfor %}
+                        </select>
+                     </div>
+                  </div>
+                  <div class="form-group col-md-3">
+                     <label class="form-label" for="brand">Brand</label>
+                     <input type="text" class="form-control" id="brand" placeholder="Asset Brand" name="brand">
+                  </div>
+                  <div class="form-group col-md-3">
+                     <label class="form-label" for="model">Model</label>
+                     <input type="text" class="form-control" id="model" placeholder="Asset Model">
+                  </div>
+                  <div class="form-group col-md-6">
+                     <label class="form-label" for="purchase_order">Purchase Ref:</label>
+                     <input type="text" class="form-control" id="purchase_order" name="purchase_order" placeholder="Purchase Reference">
+                  </div>
+                  <div class="form-group col-md-6">
+                     <label class="form-label" for="colour">Colour:</label>
+                     <input type="text" class="form-control" id="colour" name="colour" placeholder="Asset Colour">
+                  </div>
+                  <div class="form-group col-md-6">
+                     <label class="form-label" for="registration">Registration:</label>
+                     <input type="text" class="form-control" id="registration" name="registration" placeholder="Registration">
+                  </div>
+                  <div class="form-group col-md-6">
+                     <label class="form-label" for="">Condition</label>
+                     <div class="form-group select2-purple">
+                        <select class="form-control select2" data-style="" name="condition" id="condition">
+                           <option selected disabled>Asset Condition</option>
+                           <option value="GOOD">GOOD</option>
+                           <option value="FAIR">FAIR</option>
+                           <option value="BEST">BEST</option>
+                           <option value="N/A">N/A</option>
+
+                        </select>
+                     </div>
+                  </div>
+
+                  <div class="col-md-6">
+                     <div class="row">
+                        <div class="form-group col-md-6">
+                           <label class="form-label" for="purchase_date">Purchase Date:</label>
+                           <input type="date" class="form-control date_flatpicker" id="purchase_date"  name="purchase_date" >
+                        </div>
+                        <div class="form-group col-md-6">
+                           <label class="form-label" for="received_date">Receiving Date:</label>
+                           <input type="date" class="form-control date_flatpicker" id="received_date" name="received_date" >
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="form-group col-md-6">
+                           <label class="form-label" for="price">Price:</label>
+                           <input type="number" class="form-control" id="price" name="price" placeholder="Purchase Price" min="0.00">
+                        </div>
+                        <div class="form-group col-md-6">
+                           <label class="form-label" for="conversion_rate">Conversion Rate:</label>
+                           <input type="number" class="form-control" id="conversion_rate" name="conversion_rate" placeholder="Conversion Rate" min="0.00">
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="form-group col-md-6">
+                      <label class="form-label" for="description">Description:</label>
+                      <textarea class="form-control" id="description" name="description" rows="5" placeholder="Detailed Description"></textarea>
+                  </div>
+                  <div class="form-group col-md-6">
+                     <label class="form-label" for="allocated_to">Supplier:</label>
+                     <div class="form-group select2-purple">
+                        <select class="form-control select2" data-style="" name="supplier" id="supplier">
+                           <option selected disabled>Asset Supplier</option>
+                           {% for supplier in suppliers %}
+                           <option value="{{supplier.id}}">{{supplier.name}} </option>
+                           {% endfor %}
+                        </select>
+                     </div>
+                  </div>
+                  <div class="form-group col-md-3">
+                     <label class="form-label" for="current_user">Current User</label>
+                     <div class="form-group select2-purple">
+                        <select class="form-control select2" data-style="" name="current_user" id="current_user">
+                           <option selected disabled>Select Current User</option>
+                           {% for user in users %}
+                           <option value="{{user.id}}">{{user.first_name}} {{user.last_name}}</option>
+                           {% endfor %}
+                        </select>
+                     </div>
+                  </div>
+                  <div class="form-group col-md-3">
+                     <label class="form-label" for="allocated_to">Allocated To</label>
+                     <div class="form-group select2-purple">
+                        <select class="form-control select2" data-style="" name="allocated_to" id="allocated_to">
+                           <option selected disabled>Allocated To</option>
+                           {% for user in users %}
+                           <option value="{{user.id}}">{{user.first_name}} {{user.last_name}}</option>
+                           {% endfor %}
+                        </select>
+                     </div>
+                  </div>
+                  <div class="form-group col-md-3">
+                     <div class="form-group clearfix">
+                      <div class="icheck-primary d-inline">
+                        <input type="checkbox" id="checkboxPrimary1" >
+                        <label for="checkboxPrimary1">
+                        </label>
+                      </div>
+
+                      <div class="icheck-primary d-inline">
+                        <label for="checkboxPrimary1">
+                          Shared Resource
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+               </div>
+
+
+               <hr>
+               <h5 class="mb-3">Allocation</h5>
+               <div class="row">
+
+               </div>
+<!--               <div class="checkbox">-->
+<!--                  <label class="form-label"><input class="form-check-input me-2" type="checkbox" value="" id="flexCheckChecked">Enable Two-Factor-Authentication</label>-->
+<!--               </div>-->
+               <button type="submit" class="btn" style="background: green;">Add Asset</button>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+<script src="{% static 'assets/plugins/jquery/jquery.min.js' %}"></script>
+<script >
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+            //Initialize Select2 Elements
+            $('.select2bs4').select2({
+              theme: 'bootstrap4'
+            })
+        })
+    </script>
+{% endblock %}

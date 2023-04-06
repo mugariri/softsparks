@@ -1,0 +1,79 @@
+{% extends "admin/base.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block title %}{{ title }} | Asset Inventory System {% endblock %}
+
+{% block branding %}
+    {% if "admin/login" in request.build_absolute_uri %}
+            <h1 id="site-name" style="display:flex;align-items:center; color:orange;">
+                <a href="{% url 'applications:inventory:index' %}" class="text-warning" >
+                    <img src="{% static 'app/images/yellow.png' %}" height="28px" width="28px" alt="LOGO">
+                    {% trans "Asset Inventory System" %}
+                </a>
+
+            </h1>
+    {% else %}
+        <h1 id="site-name" style="display:flex;align-items:center; text-warning">
+
+        <a href="{% url 'applications:inventory:index' %}" class="text-warning">
+            <img src="{% static 'app/images/yellow.png' %}" height="28px" width="28px" alt="LOGO">
+            {% trans "Asset Inventory System" %}
+        </a>
+
+        </h1>
+    {% endif %}
+{% endblock %}
+
+{% block extrahead %}{{ block.super }}
+<link href="https://unpkg.com/tabulator-tables@4.9.3/dist/css/semantic-ui/tabulator_semantic-ui.min.css" rel="stylesheet" />
+<script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.9.3/dist/js/tabulator.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+
+<style>
+:root {
+      --primary:green;
+      --secondary: green;
+      --link-fg: green;
+      --link-selected-fg: #8f5bb2;
+      color:green;
+     }
+     #header {
+        background: #252d56;
+    }
+    div.breadcrumbs {
+        background: #34407d;
+        color: orange;
+    }
+    .module h2, .module caption, .inline-group h2 {
+        background: #34407d;
+    }
+    a:link, a:visited {
+        color: #34407d;
+    }
+    .button, input[type=submit], input[type=button], .submit-row input, a.button {
+        background: #34407d;
+    }
+    .button.default, input[type=submit].default, .submit-row input.default {
+        background: green;
+    }
+    {% if "admin/login" in request.build_absolute_uri %}
+        body{
+            background:url("{% static 'app/images/login_auth.png' %}")!important;
+            color: #34407d;
+        }
+        input[type=submit]{
+            background: orange;
+        }
+        a{
+            color: #34407d;
+        }
+        #header {
+            background:url('{% static 'app/images/small.png' %}');
+        }
+    {% endif %}
+</style>
+{% endblock %}

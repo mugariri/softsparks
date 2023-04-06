@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+         <div class="col-md-12 col-lg-12">
+            <div class="overflow-hidden card" data-aos="fade-up" data-aos-delay="600">
+               <div class="flex-wrap card-header d-flex justify-content-between">
+                  <div class="header-title">
+                     <h4 class="mb-2 card-title">Enterprise Assets</h4>
+                     <p class="mb-0">
+                        <svg class ="me-2 text-primary icon-24" width="24"  viewBox="0 0 24 24">
+                           <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+                        </svg>
+                        15 new acquired this month
+                     </p>
+                  </div>
+               </div>
+               <div class="card-body">
+
+               <div class="table-responsive">
+                  <table id="datatable" class="table table-striped" data-toggle="data-table">
+                     <thead>
+                        <tr>
+                           <th>tag</th>
+                           <th>serial</th>
+                           <th>Office</th>
+                           <th>Age</th>
+                           <th>Start date</th>
+                           <th>Salary</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        {% for asset in assets %}
+                            <tr>
+                               <td>{{asset.tag}}</td>
+                               <td>{{ asset.serial }}</td>
+                               <td>{{ asset.category }}</td>
+                               <td>{{asset.brand}}</td>
+                               <td>{{ asset.model }}</td>
+                               <td>$320,800</td>
+                            </tr>
+                        {% endfor %}
+                     </tbody>
+                     <tfoot>
+                        <tr>
+                           <th>Name</th>
+                           <th>Position</th>
+                           <th>Office</th>
+                           <th>Age</th>
+                           <th>Start date</th>
+                           <th>Salary</th>
+                        </tr>
+                     </tfoot>
+                  </table>
+               </div>
+            </div>
+            </div>
+         </div>
+      </div>
+{% endblock %}

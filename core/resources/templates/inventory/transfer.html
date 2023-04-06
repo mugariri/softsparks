@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-xl-9 col-lg-8" style="margin-right:auto; margin-left:auto; display: block;">
+   <div class="card">
+      <div class="card-header d-flex justify-content-between">
+         <div class="header-title">
+            <h4 class="card-title">Asset Transfer</h4>
+         </div>
+      </div>
+      <div class="card-body">
+         <div class="new-user-info">
+            <form action="{% url 'applications:inventory:api:transfer' %}" method="post">
+               {% csrf_token %}
+               <div class="row">
+                   <input type="hidden" name="sender" id="sender" value="{{request.user.id}}">
+                   <div class="form-group col-sm-6">
+                     <label class="form-label">TYPE:</label>
+                     <select name="type" id="type" class="form-control select2" data-style="py-0">
+                        <option selected disabled>Transfer Type</option>
+                        <option value="INTERNAL">INTERNAL</option>
+                        <option value="EXTERNAL">EXTERNAL</option>
+                     </select>
+                  </div>
+                   <div class="form-group col-sm-6">
+                     <label class="form-label">ASSET :</label>
+                     <select name="asset" id="asset" class="form-control select2">
+                        <option selected disabled>Asset</option>
+                        {% for asset in assets %}
+                           <option value="{{asset.id}}">{{asset.tag}}</option>
+                        {% endfor %}
+                     </select>
+                  </div>
+                   <div class="form-group col-sm-6">
+                     <label class="form-label">RECEIVER :</label>
+                     <select name="recipient" id="recipient" class="form-control select2" data-style="py-0">
+                        <option selected disabled>Recipient User</option>
+                        {% for user in users %}
+                           <option value="{{user.id}}">{{user.first_name}} {{user.last_name}}</option>
+                        {% endfor %}
+                     </select>
+                  </div>
+                   <div class="form-group col-sm-6">
+                     <label class="form-label">AUTHORIZER:</label>
+                     <select name="authorizer" id="authorizer" class="form-control select2" data-style="py-0">
+                        <option selected disabled>Authorizing Manager </option>
+                        {% for user in users %}
+                           <option value="{{user.id}}">{{user.first_name}} {{user.last_name}}</option>
+                        {% endfor %}
+                     </select>
+                  </div>
+                  <div class="form-group col-md-12">
+                      <label class="form-label" for="reason">Reason For Transfer:</label>
+                      <textarea class="form-control" id="reason" name="reason" rows="8" placeholder="Transfer Details"></textarea>
+                  </div>
+               </div>
+               <div class="checkbox">
+                  <label class="form-label"><input class="form-check-input me-2" type="checkbox" value="" id="flexCheckChecked">Enable Two-Factor-Authentication</label>
+               </div>
+               <button type="submit" class="btn btn-primary">Add New User</button>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock %}
